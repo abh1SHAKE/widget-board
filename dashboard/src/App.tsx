@@ -1,10 +1,11 @@
 import './App.css'
+import DashboardPage from './pages/DashboardPage'
 
 function App() {
   return (
     <>
-      <div className='text-3xl font-poppins font-semibold'>
-        But here comes Sebastian Vettel
+      <div className='w-full min-h-screen bg-[#121212] font-poppins'>
+        <DashboardPage/>
       </div>
     </>
   )
