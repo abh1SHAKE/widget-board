@@ -1,11 +1,15 @@
 import WidgetCard from "./WidgetCard"
 
 export default function CategorySection() {
-    const arr = [1, 2, 3, 4, 5]
+    const arr = [1, 2, 3, 4, 5, 6, 7]
+    const gridCols = arr.length < 2
+        ? "repeat(auto-fit,minmax(360px,30vw))"
+        : "repeat(auto-fit,minmax(360px,1fr))"
+
     return (
         <div className="py-[12px]">
             <div className="mb-4">Dashboard category</div>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(360px,1fr))] gap-[20px] w-full">
+            <div className={`grid gap-[20px] w-full`} style={{ gridTemplateColumns: gridCols }}>
                 {arr.map((_, index) => (
                     <div key={index}>
                         <WidgetCard />
