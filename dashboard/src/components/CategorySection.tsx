@@ -5,7 +5,7 @@ export default function CategorySection() {
     return (
         <div className="py-[12px]">
             <div className="mb-4">Dashboard category</div>
-            <div className="grid grid-cols-4 gap-[20px] w-full">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(360px,1fr))] gap-[20px] w-full">
                 {arr.map((_, index) => (
                     <div key={index}>
                         <WidgetCard />
