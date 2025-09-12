@@ -45,8 +45,8 @@ export default function WidgetManager({ onAddWidgetToCategory }: WidgetManagerPr
             </div>
 
             {activeCategory && (
-                <div className="flex flex-col flex-1">
-                    <div className="mb-4">
+                <div className="flex flex-col flex-1 min-h-0">
+                    <div className="mb-4 flex-shrink-0">
                         <button
                             onClick={handleAddWidget}
                             className="w-full bg-[#c1c1c1] text-[#161616] font-semibold py-3 px-4 rounded-lg hover:bg-[#a0a0a0] transition-colors"
@@ -55,7 +55,7 @@ export default function WidgetManager({ onAddWidgetToCategory }: WidgetManagerPr
                         </button>
                     </div>
 
-                    <div className="flex-1">
+                    <div className="flex-1 overflow-y-auto space-y-3 no-scrollbar scroll-smooth">
                         {activeCategory.widgets.length === 0 ? (
                             <div className="text-center text-[#828282] py-8">
                                 <p>No widgets in this category</p>
