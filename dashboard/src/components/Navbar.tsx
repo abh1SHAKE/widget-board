@@ -1,6 +1,10 @@
 import SearchBar from "./SearchBar";
 
-export default function Navbar() {
+interface NavbarProps {
+    onSearch: (query: string) => void;
+}
+
+export default function Navbar({ onSearch }: NavbarProps) {
     return (
         <div className="flex flex-row bg-[#161616] justify-between items-center px-12 py-4">
             <div className="breadcrumb cursor-pointer">
@@ -8,7 +12,7 @@ export default function Navbar() {
             </div>
             <div className="flex flex-row gap-20 items-center">
                 <div>
-                    <SearchBar />
+                    <SearchBar onSearch={onSearch} />
                 </div>
                 <div className="flex flex-row gap-[8px]">
                     <div>
@@ -27,5 +31,5 @@ export default function Navbar() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

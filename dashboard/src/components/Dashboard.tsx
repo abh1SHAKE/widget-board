@@ -1,18 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CategorySection from "./CategorySection";
 import SideDrawer from "./SideDrawer";
 import WidgetForm from "./WidgetForm";
 import WidgetManager from "./WidgetManager";
 import useDashboardStore from "../store/dashboardStore";
 import type { FormData } from "../types/forms";
+import type { DashboardData } from "../types/widget";
 
 type DrawerMode = 'manager' | 'form';
 
-export default function Dashboard() {
+interface DashboardProps {
+    searchQuery: string;
+}
+
+export default function Dashboard({ searchQuery }: DashboardProps) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [drawerMode, setDrawerMode] = useState<DrawerMode>('manager');
     const [activeCategoryId, setActiveCategoryId] = useState<string>("");
     const { data, addWidget, refreshData } = useDashboardStore();
+    const [filteredData, setFilteredData] = useState<DashboardData>(data);
+
+    useEffect(() => {
+        if (searchQuery) {
+            const lowerCaseQuery = searchQuery.toLowerCase();
+            const filteredCategories = data.categories.map(category => ({
+                ...category,
+                widgets: category.widgets.filter(widget => 
+                    widget.title.toLowerCase().includes(lowerCaseQuery)
+                )
+            }));
+            setFilteredData({ categories: filteredCategories });
+        } else {
+            setFilteredData(data);
+        }
+    }, [searchQuery, data]);
 
     function handleAddWidgetFromHeader() {
         console.log("HANDLE ADD WIDGET FROM HEADER");
@@ -80,18 +101,19 @@ export default function Dashboard() {
                     </button>
                     <button 
                         onClick={handleRefresh}
-                        className="flex flex-row text-[#c1c1c1] hover:text-[#161616] hover:bg-[#c1c1c1] border border-[#c1c1c1] px-[8px] py-[2px] rounded-2xl gap-[6px] cursor-pointer">
+                        className="flex flex-row text-[#c1c1c1] hover:text-[#161616] hover:bg-[#c1c1c1] border border-[#c1c1c1] px-[8px] py-[2px] rounded-2xl gap-[6px] cursor-pointer"
+                    >
                         Refresh
                         <span className="flex flex-row items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 16 16" className="stroke-[#c1c1c1] group-hover:stroke-[#161616]">
-	                            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M13.1 12c-1.2 1.5-3 2.5-5.1 2.5c-3.6 0-6.5-2.9-6.5-6.5S4.4 1.5 8 1.5c2.2 0 4.1 1.1 5.3 2.7m.2-3.2v3c0 .3-.2.5-.5.5h-3" />
+                                <path fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M13.1 12c-1.2 1.5-3 2.5-5.1 2.5c-3.6 0-6.5-2.9-6.5-6.5S4.4 1.5 8 1.5c2.2 0 4.1 1.1 5.3 2.7m.2-3.2v3c0 .3-.2.5-.5.5h-3" />
                             </svg>
                         </span>
                     </button>
                 </div>
             </div>
             <div>
-                {data.categories.map((category) => (
+                {filteredData.categories.map((category) => (
                     <CategorySection 
                         key={category.id}
                         category={category}
@@ -100,7 +122,6 @@ export default function Dashboard() {
                 ))}
             </div>
             <div className="h-[40px]"></div>
-
             <SideDrawer 
                 isOpen={isDrawerOpen}
                 onClose={handleCloseDrawer}
@@ -116,5 +137,5 @@ export default function Dashboard() {
                 )}
             </SideDrawer>
         </div>
-    )
+    );
 }
