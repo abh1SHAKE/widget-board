@@ -7,28 +7,78 @@ const initialData: DashboardData = {
 			id: 'cspm',
 			name: 'CSPM Executive Dashboard',
 			widgets: [
-				{ id: '1', title: 'Cloud Accounts', description: 'Connected cloud accounts overview' },
-				{ id: '2', title: 'Security Score', description: 'Overall security posture score' },
-				{ id: '3', title: 'Compliance Status', description: 'Compliance framework status' },
-				{ id: '4', title: 'Risk Assessment', description: 'Critical risks and vulnerabilities' },
-				{ id: '5', title: 'Cost Optimization', description: 'Cost saving recommendations' },
+				{ 
+					id: '1', 
+					title: 'Cloud Accounts', 
+					description: `Overview of all connected cloud accounts in one place.  
+       				See services, regions, and ownership to track usage and changes.`
+				},
+				{ 
+					id: '2', 
+					title: 'Security Score', 
+					description: `Your overall security posture represented as a single score.  
+       				Combines vulnerabilities, configuration checks and policy adherence.` 
+				},
+				{ 
+					id: '3', 
+					title: 'Compliance Status', 
+					description: `Shows your environment’s status against key compliance frameworks.  
+       				Highlights passing and failing controls to simplify audits.` 
+				},
+				{ 
+					id: '4', 
+					title: 'Risk Assessment', 
+					description: `Analysis of critical risks and vulnerabilities across infrastructure.  
+       				Covers misconfigurations, outdated components and high-impact threats.` 
+				},
+				{ 
+					id: '5', 
+					title: 'Cost Optimization', 
+					description: `Actionable tips to reduce cloud spending and optimize resources.  
+       				Surfaces underutilized services and budget trends.`
+				},
 			]
 		},
 		{
 			id: 'cwpp',
 			name: 'CWPP Dashboard',
 			widgets: [
-				{ id: '6', title: 'Workload Protection', description: 'Protected workloads status' },
-        		{ id: '7', title: 'Threat Detection', description: 'Real-time threat monitoring' },
-        		{ id: '8', title: 'Incident Response', description: 'Active incidents and response' },
+				{ 
+					id: '6', 
+					title: 'Workload Protection', 
+					description: `Status of all protected workloads across your cloud environment.  
+       				See which systems are covered and where gaps exist.` 
+				},
+        		{ 
+					id: '7', 
+					title: 'Threat Detection', 
+					description: `Real-time monitoring for malicious or suspicious activity.  
+       				Aggregates alerts from multiple sources for quick analysis.`
+				},
+        		{ 
+					id: '8', 
+					title: 'Incident Response', 
+					description: `Overview of active incidents and your team’s response actions.  
+       				Track progress, assign tasks, and document outcomes.`
+				},
 			]
 		},
 		{
 			id: 'registry',
 			name: 'Registry Scan',
 			widgets: [
-				{ id: '9', title: 'Image Vulnerabilities', description: 'Container image scan results' },
-        		{ id: '10', title: 'Registry Health', description: 'Registry security health check' },
+				{ 
+					id: '9', 
+					title: 'Image Vulnerabilities', 
+					description: `Results from security scans of your container images.  
+       				Identify outdated packages, known CVEs and misconfigurations.` 
+				},
+        		{ 
+					id: '10', 
+					title: 'Registry Health', 
+					description: `Results from security scans of your container images.  
+       				Identify outdated packages, known CVEs and misconfigurations.`
+				},
 			]
 		}
 	]
