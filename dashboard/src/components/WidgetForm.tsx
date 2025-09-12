@@ -33,39 +33,41 @@ export default function WidgetForm({ onSubmit, onCancel }: WidgetFormProps) {
     }
 
     return (
-        <form onSubmit={handleFormSubmit} className="space-y-6">
+        <form onSubmit={handleFormSubmit} className="flex flex-col justify-between h-full space-y-6">
             <div>
-                <label htmlFor="title" className="block text-sm font-medium text-[#c1c1c1] mb-2">
-                    Widget title
-                </label>
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleInputChange}
-                    className="w-full bg-[#161616] placeholder-[#606060] px-3 py-2 border border-[#606060] rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#c1c1c1]"
-                    placeholder="Enter widget title"
-                    required
-                >
-                </input>
-            </div>
+                <div>
+                    <label htmlFor="title" className="block text-sm font-medium text-[#c1c1c1] mb-2">
+                        Widget title
+                    </label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleInputChange}
+                        className="w-full bg-[#161616] placeholder-[#606060] px-3 py-2 border border-[#606060] rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#c1c1c1]"
+                        placeholder="Enter widget title"
+                        required
+                    >
+                    </input>
+                </div>
 
-            <div>
-                <label htmlFor="description" className="block text-sm font-medium text-[#c1c1c1] mb-2">
-                    Description
-                </label>
-                <textarea
-                    id="description"
-                    name="description"
-                    rows={6}
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    className="w-full bg-[#161616] placeholder-[#606060] px-3 py-2 border border-[#606060] rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#c1c1c1]"
-                    placeholder="Enter widget description"
-                    required
-                >
-                </textarea>
+                <div>
+                    <label htmlFor="description" className="block text-sm font-medium text-[#c1c1c1] mb-2 mt-4">
+                        Description
+                    </label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows={6}
+                        value={formData.description}
+                        onChange={handleInputChange}
+                        className="w-full bg-[#161616] placeholder-[#606060] px-3 py-2 border border-[#606060] rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#c1c1c1]"
+                        placeholder="Enter widget description"
+                        required
+                    >
+                    </textarea>
+                </div>
             </div>
 
             <div className="flex gap-3 pt-4">

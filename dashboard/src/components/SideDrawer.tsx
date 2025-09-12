@@ -15,7 +15,7 @@ export default function SideDrawer({ isOpen, onClose, title, children }: SideDra
                 onClick={onClose}
             ></div>
             
-            <div className="absolute right-0 top-0 h-full w-[33vw] bg-[#161616] shadow-xl transform transition-transform duration-300 ease-in-out">
+            <div className="absolute right-0 top-0 h-full w-[33vw] bg-[#161616] shadow-xl rounded-tl-3xl rounded-bl-3xl transform transition-transform duration-300 ease-in-out">
                 <div className="flex items-center justify-between p-6">
                     <h2 className="text-lg text-[#c1c1c1] font-semibold cursor-default">{title}</h2>
                     <button
@@ -28,7 +28,7 @@ export default function SideDrawer({ isOpen, onClose, title, children }: SideDra
                     </button>
                 </div>
 
-                <div className="p-6">
+                <div className="p-6 h-[calc(100%-72px)]">
                     {children}
                 </div>
             </div>
