@@ -1,10 +1,19 @@
-export default function WidgetCard({ isEmpty = false }) {
+type WidgetCardProps = {
+    isEmpty?: boolean;
+    onAddWidget?: () => void;
+};
+
+export default function WidgetCard({ isEmpty = false, onAddWidget }: WidgetCardProps) {
     function handleDelete() {
-        console.log("DELETE WIDGET")
+        console.log("DELETE WIDGET");
     }
 
     function handleAddWidget() {
-        console.log("ADD WIDGET")
+        console.log("ADD WIDGET");
+
+        if (onAddWidget) {
+            onAddWidget();
+        }
     }
 
     if (isEmpty) {

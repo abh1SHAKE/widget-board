@@ -1,12 +1,28 @@
+import { useState } from "react";
 import CategorySection from "./CategorySection";
+import SideDrawer from "./SideDrawer";
+import WidgetForm from "./WidgetForm";
+import type { FormData } from "../types/forms";
 
 export default function Dashboard() {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
     function handleAddWidget() {
-        console.log("HANDLE ADD WIDGET")
+        console.log("HANDLE ADD WIDGET");
+        setIsDrawerOpen(true);
     }
 
     function handleRefresh() {
-        console.log("HANDLE REFRESH")
+        console.log("HANDLE REFRESH");
+    }
+
+    function handleCloseDrawer() {
+        setIsDrawerOpen(false);
+    }
+
+    function handleWidgetSubmit(formData: FormData) {
+        console.log("Widget data: ", formData);
+        setIsDrawerOpen(false);
     }
 
     return (
@@ -33,11 +49,22 @@ export default function Dashboard() {
                 </div>
             </div>
             <div>
-                <CategorySection />
-                <CategorySection />
-                <CategorySection />
+                <CategorySection onAddWidget={handleAddWidget}/>
+                <CategorySection onAddWidget={handleAddWidget}/>
+                <CategorySection onAddWidget={handleAddWidget}/>
             </div>
             <div className="h-[40px]"></div>
+
+            <SideDrawer 
+                isOpen={isDrawerOpen}
+                onClose={handleCloseDrawer}
+                title="Add new widget"
+            >
+                <WidgetForm 
+                    onSubmit={handleWidgetSubmit}
+                    onCancel={handleCloseDrawer}
+                />
+            </SideDrawer>
         </div>
     )
 }
