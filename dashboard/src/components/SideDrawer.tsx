@@ -17,7 +17,7 @@ export default function SideDrawer({ isOpen, onClose, title, children }: SideDra
             
             <div className="absolute right-0 top-0 h-full w-[33vw] bg-[#161616] shadow-xl rounded-tl-3xl rounded-bl-3xl transform transition-transform duration-300 ease-in-out">
                 <div className="flex items-center justify-between p-6">
-                    <h2 className="text-lg text-[#c1c1c1] font-semibold cursor-default">{title}</h2>
+                    <h2 className="text-lg text-[#c1c1c1] font-semibold max-w-[400px] truncate cursor-default">{title}</h2>
                     <button
                         onClick={onClose}
                         className="text-[#c1c1c1] hover:text-[#606060]"

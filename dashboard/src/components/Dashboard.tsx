@@ -36,26 +36,22 @@ export default function Dashboard({ searchQuery }: DashboardProps) {
     }, [searchQuery, data]);
 
     function handleAddWidgetFromHeader() {
-        console.log("HANDLE ADD WIDGET FROM HEADER");
         setDrawerMode('manager');
         setIsDrawerOpen(true);
     }
 
     function handleAddWidgetFromCategory(categoryId: string) {
-        console.log("HANDLE ADD WIDGET FROM CATEGORY", categoryId);
         setActiveCategoryId(categoryId);
         setDrawerMode('form');
         setIsDrawerOpen(true);
     }
 
     function handleAddWidgetFromManager(categoryId: string) {
-        console.log("HANDLE ADD WIDGET FROM MANAGER", categoryId);
         setActiveCategoryId(categoryId);
         setDrawerMode('form');
     }
 
     function handleRefresh() {
-        console.log("HANDLE REFRESH");
         refreshData();
     }
 
@@ -66,7 +62,6 @@ export default function Dashboard({ searchQuery }: DashboardProps) {
     }
 
     function handleWidgetSubmit(formData: FormData) {
-        console.log("Widget data: ", formData);
         if (activeCategoryId) {
             addWidget(activeCategoryId, formData);
         }
@@ -86,7 +81,8 @@ export default function Dashboard({ searchQuery }: DashboardProps) {
         }
     }
 
-    const drawerTitle = drawerMode === 'manager' ? 'Personalize your dashboard' : 'Add new widget';
+    const activeCategory = data.categories.find((category) => category.id === activeCategoryId);
+    const drawerTitle = drawerMode === 'manager' ? 'Personalize your dashboard' : `Add new widget to ${activeCategory?.name}`;
 
     return (
         <div className="px-12">

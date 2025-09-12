@@ -9,15 +9,12 @@ type WidgetCardProps = {
 
 export default function WidgetCard({ widget, isEmpty = false, onAddWidget, onDelete }: WidgetCardProps) {
     function handleDelete() {
-        console.log("DELETE WIDGET");
         if (onDelete) {
             onDelete();
         }
     }
 
     function handleAddWidget() {
-        console.log("ADD WIDGET");
-
         if (onAddWidget) {
             onAddWidget();
         }
