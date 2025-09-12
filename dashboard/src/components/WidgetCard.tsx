@@ -1,11 +1,18 @@
+import type { Widget } from "../types/widget";
+
 type WidgetCardProps = {
+    widget?: Widget;
     isEmpty?: boolean;
     onAddWidget?: () => void;
+    onDelete?: () => void;
 };
 
-export default function WidgetCard({ isEmpty = false, onAddWidget }: WidgetCardProps) {
+export default function WidgetCard({ widget, isEmpty = false, onAddWidget, onDelete }: WidgetCardProps) {
     function handleDelete() {
         console.log("DELETE WIDGET");
+        if (onDelete) {
+            onDelete();
+        }
     }
 
     function handleAddWidget() {
@@ -32,14 +39,14 @@ export default function WidgetCard({ isEmpty = false, onAddWidget }: WidgetCardP
     return (
         <div className="bg-[#181818] p-[16px] rounded-md w-full h-[180px] group">
             <div className="flex flex-row justify-between">
-                Card title
+                { widget?.title }
                 <span className="cursor-pointer invisible group-hover:visible" onClick={handleDelete}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
 	                    <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="m7 7l10 10M7 17L17 7" />
                     </svg>
                 </span>
             </div>
-            <div>Random stuff</div>
+            <div>{ widget?.description }</div>
         </div>
     )
 }

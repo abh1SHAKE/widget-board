@@ -3,26 +3,36 @@ import CategorySection from "./CategorySection";
 import SideDrawer from "./SideDrawer";
 import WidgetForm from "./WidgetForm";
 import type { FormData } from "../types/forms";
+import useDashboardStore from "../store/dashboardStore";
 
 export default function Dashboard() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [activeCategoryId, setActiveCategoryId] = useState<string>("");
+    const { data, addWidget, refreshData } = useDashboardStore();
 
-    function handleAddWidget() {
-        console.log("HANDLE ADD WIDGET");
+    function handleAddWidget(categoryId?: string) {
+        console.log("HANDLE ADD WIDGET", categoryId);
+        setActiveCategoryId(categoryId || "");
         setIsDrawerOpen(true);
     }
 
     function handleRefresh() {
         console.log("HANDLE REFRESH");
+        refreshData();
     }
 
     function handleCloseDrawer() {
         setIsDrawerOpen(false);
+        setActiveCategoryId("");
     }
 
     function handleWidgetSubmit(formData: FormData) {
         console.log("Widget data: ", formData);
+        if (activeCategoryId) {
+            addWidget(activeCategoryId, formData);
+        }
         setIsDrawerOpen(false);
+        setActiveCategoryId("");
     }
 
     return (
@@ -31,7 +41,7 @@ export default function Dashboard() {
                 <span className="flex flex-row items-center text-base font-bold cursor-default">CNAPP Dashboard</span>
                 <div className="flex flex-row gap-6">
                     <button 
-                        onClick={handleAddWidget}
+                        onClick={() => handleAddWidget()}
                         className="text-[#c1c1c1] hover:text-[#161616] border border-[#c1c1c1] hover:bg-[#c1c1c1] px-[8px] py-[2px] rounded-2xl cursor-pointer"
                     >
                         Add Widget +
@@ -49,9 +59,13 @@ export default function Dashboard() {
                 </div>
             </div>
             <div>
-                <CategorySection onAddWidget={handleAddWidget}/>
-                <CategorySection onAddWidget={handleAddWidget}/>
-                <CategorySection onAddWidget={handleAddWidget}/>
+                {data.categories.map((category) => (
+                    <CategorySection 
+                        key={category.id}
+                        category={category}
+                        onAddWidget={(categoryId) => handleAddWidget(categoryId)}
+                    />
+                ))}
             </div>
             <div className="h-[40px]"></div>
 

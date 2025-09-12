@@ -1,27 +1,40 @@
+import useDashboardStore from "../store/dashboardStore";
+import type { Category } from "../types/widget";
 import WidgetCard from "./WidgetCard"
 
 type CategorySectionProps = {
-    onAddWidget: () => void;
+    category: Category;
+    onAddWidget: (categoryId: string) => void;
 };
 
-export default function CategorySection({ onAddWidget }: CategorySectionProps) {
-    const arr = [1, 2, 3, 4, 5, 6, 7];
+export default function CategorySection({ category, onAddWidget }: CategorySectionProps) {
+    const { removeWidget } = useDashboardStore();
 
-    const gridCols = arr.length < 2
+    const gridCols = category.widgets.length < 2
         ? "repeat(auto-fit,minmax(360px,30vw))"
         : "repeat(auto-fit,minmax(360px,1fr))"
+    
+    function handleDeleteWidget(widgetId: string) {
+        removeWidget(category.id, widgetId);
+    }
+
+    function handleAddWidget() {
+        onAddWidget(category.id);
+    }
 
     return (
         <div className="py-[12px]">
-            <div className="mb-4">Dashboard category</div>
+            <div className="mb-4">{ category.name }</div>
             <div className={`grid gap-[20px] w-full`} style={{ gridTemplateColumns: gridCols }}>
-                {arr.map((_, index) => (
-                    <div key={index}>
-                        <WidgetCard />
-                    </div>
+                {category.widgets.map((widget) => (
+                    <WidgetCard 
+                        key={widget.id}
+                        widget={widget}
+                        onDelete={() => handleDeleteWidget(widget.id)}
+                    />
                 ))}
 
-                <WidgetCard isEmpty={true} onAddWidget={onAddWidget}/>
+                <WidgetCard isEmpty={true} onAddWidget={handleAddWidget}/>
             </div>
         </div>
     )
