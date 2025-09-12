@@ -24,6 +24,7 @@ export default function WidgetCard({ widget, isEmpty = false, onAddWidget, onDel
         return (
             <div className="flex flex-row justify-center items-center bg-[#181818] p-[16px] rounded-md w-full h-[180px]">
                 <button 
+                    title="Add widget"
                     onClick={handleAddWidget}
                     className="text-sm text-[#828282] hover:text-[#c1c1c1] border border-[#828282] hover:border-[#c1c1c1] px-[8px] py-[2px] rounded-2xl cursor-pointer"
                 >
@@ -37,11 +38,13 @@ export default function WidgetCard({ widget, isEmpty = false, onAddWidget, onDel
         <div className="flex flex-col justify-between bg-[#181818] p-[16px] rounded-md w-full h-[180px] group">
             <div className="flex flex-row font-medium justify-between">
                 { widget?.title }
-                <span className="cursor-pointer invisible group-hover:visible" onClick={handleDelete}>
+                <button 
+                    title="Delete widget"
+                    className="cursor-pointer invisible group-hover:visible" onClick={handleDelete}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
 	                    <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="m7 7l10 10M7 17L17 7" />
                     </svg>
-                </span>
+                </button>
             </div>
             <div className="text-[#848484]">{ widget?.description }</div>
         </div>

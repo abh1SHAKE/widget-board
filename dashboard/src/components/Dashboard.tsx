@@ -90,12 +90,14 @@ export default function Dashboard({ searchQuery }: DashboardProps) {
                 <span className="flex flex-row items-center text-base font-bold cursor-default">CNAPP Dashboard</span>
                 <div className="flex flex-row gap-6">
                     <button 
+                        title="Add widget"
                         onClick={handleAddWidgetFromHeader}
                         className="text-[#c1c1c1] hover:text-[#161616] border border-[#c1c1c1] hover:bg-[#c1c1c1] px-[8px] py-[2px] rounded-2xl cursor-pointer"
                     >
                         Add Widget +
                     </button>
                     <button 
+                        title="Refresh"
                         onClick={handleRefresh}
                         className="flex flex-row text-[#c1c1c1] hover:text-[#161616] hover:bg-[#c1c1c1] border border-[#c1c1c1] px-[8px] py-[2px] rounded-2xl gap-[6px] cursor-pointer"
                     >

@@ -72,12 +72,14 @@ export default function WidgetForm({ onSubmit, onCancel }: WidgetFormProps) {
 
             <div className="flex gap-3 pt-4">
                 <button
+                    title="Add widget"
                     type="submit"
                     className="flex-1 bg-[#c1c1c1] text-[#161616] font-semibold py-2 px-4 rounded-[50px] hover:bg-[#606060]"
                 >
                     Add widget
                 </button>
                 <button
+                    title="Cancel"
                     type="button"
                     onClick={handleCancel}
                     className="flex-1 bg-[#161616] text-[#c1c1c1] font-semibold py-2 px-4 rounded-[50px] hover:text-[#606060] hover:border-[#606060] border-2 border-[#c1c1c1]"
