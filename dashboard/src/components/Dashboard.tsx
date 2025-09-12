@@ -2,18 +2,35 @@ import { useState } from "react";
 import CategorySection from "./CategorySection";
 import SideDrawer from "./SideDrawer";
 import WidgetForm from "./WidgetForm";
-import type { FormData } from "../types/forms";
+import WidgetManager from "./WidgetManager";
 import useDashboardStore from "../store/dashboardStore";
+import type { FormData } from "../types/forms";
+
+type DrawerMode = 'manager' | 'form';
 
 export default function Dashboard() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [drawerMode, setDrawerMode] = useState<DrawerMode>('manager');
     const [activeCategoryId, setActiveCategoryId] = useState<string>("");
     const { data, addWidget, refreshData } = useDashboardStore();
 
-    function handleAddWidget(categoryId?: string) {
-        console.log("HANDLE ADD WIDGET", categoryId);
-        setActiveCategoryId(categoryId || "");
+    function handleAddWidgetFromHeader() {
+        console.log("HANDLE ADD WIDGET FROM HEADER");
+        setDrawerMode('manager');
         setIsDrawerOpen(true);
+    }
+
+    function handleAddWidgetFromCategory(categoryId: string) {
+        console.log("HANDLE ADD WIDGET FROM CATEGORY", categoryId);
+        setActiveCategoryId(categoryId);
+        setDrawerMode('form');
+        setIsDrawerOpen(true);
+    }
+
+    function handleAddWidgetFromManager(categoryId: string) {
+        console.log("HANDLE ADD WIDGET FROM MANAGER", categoryId);
+        setActiveCategoryId(categoryId);
+        setDrawerMode('form');
     }
 
     function handleRefresh() {
@@ -24,6 +41,7 @@ export default function Dashboard() {
     function handleCloseDrawer() {
         setIsDrawerOpen(false);
         setActiveCategoryId("");
+        setDrawerMode('manager');
     }
 
     function handleWidgetSubmit(formData: FormData) {
@@ -33,7 +51,21 @@ export default function Dashboard() {
         }
         setIsDrawerOpen(false);
         setActiveCategoryId("");
+        setDrawerMode('manager');
     }
+
+    function handleFormCancel() {
+        if (drawerMode === 'form') {
+            if (activeCategoryId) {
+                setDrawerMode('manager');
+                setActiveCategoryId("");
+            } else {
+                handleCloseDrawer();
+            }
+        }
+    }
+
+    const drawerTitle = drawerMode === 'manager' ? 'Personalize your dashboard' : 'Add new widget';
 
     return (
         <div className="px-12">
@@ -41,7 +73,7 @@ export default function Dashboard() {
                 <span className="flex flex-row items-center text-base font-bold cursor-default">CNAPP Dashboard</span>
                 <div className="flex flex-row gap-6">
                     <button 
-                        onClick={() => handleAddWidget()}
+                        onClick={handleAddWidgetFromHeader}
                         className="text-[#c1c1c1] hover:text-[#161616] border border-[#c1c1c1] hover:bg-[#c1c1c1] px-[8px] py-[2px] rounded-2xl cursor-pointer"
                     >
                         Add Widget +
@@ -63,7 +95,7 @@ export default function Dashboard() {
                     <CategorySection 
                         key={category.id}
                         category={category}
-                        onAddWidget={(categoryId) => handleAddWidget(categoryId)}
+                        onAddWidget={(categoryId) => handleAddWidgetFromCategory(categoryId)}
                     />
                 ))}
             </div>
@@ -72,12 +104,16 @@ export default function Dashboard() {
             <SideDrawer 
                 isOpen={isDrawerOpen}
                 onClose={handleCloseDrawer}
-                title="Add new widget"
+                title={drawerTitle}
             >
-                <WidgetForm 
-                    onSubmit={handleWidgetSubmit}
-                    onCancel={handleCloseDrawer}
-                />
+                {drawerMode === 'manager' ? (
+                    <WidgetManager onAddWidgetToCategory={handleAddWidgetFromManager} />
+                ) : (
+                    <WidgetForm 
+                        onSubmit={handleWidgetSubmit}
+                        onCancel={handleFormCancel}
+                    />
+                )}
             </SideDrawer>
         </div>
     )
